@@ -15,14 +15,14 @@ class GPIO
     # set up pins
     hash.each do |k, v|
       @pins[k] = Pin.new(k.to_s, v[:number])
-      @pins[k].as v[:directions]
-      export v
+      export v[:number]
+      @pins[k].as v[:direction]
     end
   end
 
   def destroy
     @pins.each do |k, v|
-      unexport v
+      unexport v[:number]
     end
   end
 
@@ -43,13 +43,22 @@ class GPIO
     end
 
     def read(gpio_num)
-      # File.read("/sys/class/gpio/gpio#{gpio_num}/value").to_i
+      File.read("/sys/class/gpio/gpio#{gpio_num}/value").to_i
     end
 
     def write(command, value)
-      # File.open("/sys/class/gpio/#{command}", "w") do |f|
-      #   f.write value
-      # end
+      log [command, value]
+      File.open("/sys/class/gpio/#{command}", "w") do |f|
+        f.write value
+      end
     end
+
+    def log(msg)
+      puts msg
+      File.open("log.log", "w+") do |f|
+        f.write msg
+      end
+    end
+
   end
 end

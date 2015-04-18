@@ -1,5 +1,8 @@
+source 'http://rubygems.org'
+
 gem 'sinatra'
-gem 'sinatra-contrib'
+gem 'concurrent-ruby', '~> 0.8.0'
+gem 'concurrent-ruby-ext', '~> 0.8.0'
 gem 'haml'
 gem 'execjs'
 gem 'concurrent-ruby'
