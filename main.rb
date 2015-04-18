@@ -35,3 +35,9 @@ get '/answer' do
 
   command
 end
+
+post '/timer' do
+  puts "="*5
+  puts params
+  puts "="*5
+end
